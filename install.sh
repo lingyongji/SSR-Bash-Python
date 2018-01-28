@@ -67,8 +67,8 @@ bash initcfg.sh
 
 #Install Libsodium
 cd $workdir
-export LIBSODIUM_VER=1.0.11
-wget https://github.com/jedisct1/libsodium/releases/download/1.0.11/libsodium-$LIBSODIUM_VER.tar.gz
+export LIBSODIUM_VER=1.0.16
+wget https://github.com/jedisct1/libsodium/releases/download/1.0.16/libsodium-$LIBSODIUM_VER.tar.gz
 tar xvf libsodium-$LIBSODIUM_VER.tar.gz
 pushd libsodium-$LIBSODIUM_VER
 ./configure --prefix=/usr && make
@@ -156,3 +156,4 @@ echo 'Github: https://github.com/FunctionClub'
 echo 'QQ Group:277717865'
 echo 'Function Club 无限期停更说明'
 echo 'https://www.ixh.me/2017/05/function-club-stop/'
+echo 'Modified by lingyongji'
