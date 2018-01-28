@@ -1,5 +1,6 @@
 #!/bin/bash
 export PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+. /usr/local/SSR-Bash-Python/config.sh
 
 #Check Root
 [ $(id -u) != "0" ] && { echo "Error: You must be root to run this script"; exit 1; }
@@ -59,8 +60,8 @@ fi
 
 #Install SSR and SSR-Bash
 cd /usr/local
-git clone https://github.com/lingyongji/shadowsocksr.git
-git clone https://github.com/lingyongji/SSR-Bash-Python.git
+git clone https://github.com/${GH_REPO}/shadowsocksr.git
+git clone https://github.com/${GH_REPO}/SSR-Bash-Python.git
 cd /usr/local/shadowsocksr
 bash initcfg.sh
 
