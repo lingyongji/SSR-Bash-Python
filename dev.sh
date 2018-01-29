@@ -1,6 +1,5 @@
 #!/bin/bash
 export PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-. /usr/local/SSR-Bash-Python/config.sh
 
 #Check Root
 [ $(id -u) != "0" ] && { echo "Error: You must be root to run this script"; exit 1; }
@@ -24,7 +23,7 @@ if [[ $devc == 1 ]];then
 	rm -rf /usr/local/bin/ssr
 	cd /usr/local/SSR-Bash-Python/
 	git pull
-	wget -N --no-check-certificate -O /usr/local/bin/ssr https://raw.githubusercontent.com/${GH_REPO}/master/ssr
+	wget -N --no-check-certificate -O /usr/local/bin/ssr https://raw.githubusercontent.com/lingyongji/SSR-Bash-Python/master/ssr
 	chmod +x /usr/local/bin/ssr
 	echo 'SSR-Bash升级成功！'
 	ssr
