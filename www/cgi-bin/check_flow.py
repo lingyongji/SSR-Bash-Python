@@ -120,7 +120,7 @@ formhtml = '''
 </div>
 '''
 
-print formhtml % (getport,d_int,d_unit,transfer_enable_int,transfer_unit)
+print formhtml % (getport,getpasswd,d_int,d_unit,transfer_enable_int,transfer_unit)
 
 print footer
 f.close();
