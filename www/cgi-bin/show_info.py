@@ -95,12 +95,12 @@ html='''
                                 <div class="card-main">
                                     <div class="card-inner">
                                         <p>
-                                            <strong>服务器地址：</strong> %s </br></br>
+                                            <strong>服务器IP：</strong> %s </br></br>
                                             <strong>连接端口：</strong> %s </br></br>
                                             <strong>流量信息：</strong> %s %s / %s %s</br></br>
-                                            <strong>加密方式： </strong>%s </br></br>
-                                            <strong>协议方式： </strong></br>%s </br></br>
-                                            <strong>混淆方式：</strong> </br>%s
+                                            <strong>加密方式：</strong> %s </br></br>
+                                            <strong>协议方式：</strong> %s </br></br>
+                                            <strong>混淆方式：</strong> %s
                                         </p>
                                     </div>
                                     <div class="card-action">
