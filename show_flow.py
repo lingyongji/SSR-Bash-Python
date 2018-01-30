@@ -23,7 +23,7 @@ for x in json:
     d_unit = "GB"
 
   #Print In Format
-  print "%s\t%s\t%s%s\t\t%s%s" %(x[u"user"],x[u"port"],d_int,d_unit,transfer_enable_int,transfer_unit)
+  print "%s\t%s\t%s%s\t%s%s" %(x[u"user"],x[u"port"],d_int,d_unit,transfer_enable_int,transfer_unit)
 
 f.close();
 
