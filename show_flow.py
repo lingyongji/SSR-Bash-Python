@@ -10,7 +10,7 @@ print "用户名\t端口\t已用流量\t流量限制"
 for x in json:
   #Convert Unit To MB
   transfer_enable_int = int(x[u"transfer_enable"])/1024/1024;
-  d_int = round(float(x[u"d"])/1024/1024,2);
+  d_int = round(float(x[u"d"])/1024/1024,0);
   transfer_unit = "MB"
   d_unit = "MB"
 
@@ -23,7 +23,7 @@ for x in json:
     d_unit = "GB"
 
   #Print In Format
-  print "%s\t%s\t%s%s\t%s%s" %(x[u"user"],x[u"port"],d_int,d_unit,transfer_enable_int,transfer_unit)
+  print "%s\t%s\t%s%s\t\t%s%s" %(x[u"user"],x[u"port"],d_int,d_unit,transfer_enable_int,transfer_unit)
 
 f.close();
 
