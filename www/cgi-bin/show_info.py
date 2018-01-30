@@ -120,7 +120,7 @@ html='''
     </div>
     <footer class="footer">
         <div class="container">
-            <p>Function Club</p>
+            <p>Function Club&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;【Modified by 天意jily】</p>
         </div>
     </footer>
     <script src="../js/base.min.js" type="text/javascript"></script>
