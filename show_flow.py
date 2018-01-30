@@ -16,10 +16,10 @@ for x in json:
 
   #Convert Unit To GB For Those Number Which Exceeds 1024MB
   if(transfer_enable_int > 1024):
-  	transfer_enable_int = transfer_enable_int/1024
+  	transfer_enable_int = transfer_enable_int/1024;
   	transfer_unit = "GB"
   if(d_int > 1024):
-  	d_int = round(d_int/1024,2)
+  	d_int = round(d_int/1024,2);
   	d_unit = "GB"
 
   #Print In Format
