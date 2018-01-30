@@ -28,7 +28,7 @@ for x in json:
 		if(str(x[u"passwd"]) == str(getpasswd)):
 			passwdcorrect=1
 			transfer_enable_int = int(x[u"transfer_enable"])/1024/1024;
-			d_int = round(decimal(x[u"d"])/1024/1024,0);
+			d_int = round(float(x[u"d"])/1024/1024,2);
 			transfer_unit = "MB"
 			d_unit = "MB"
 			jsonmethod=str(x[u"method"])
