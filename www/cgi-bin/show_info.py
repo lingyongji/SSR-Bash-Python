@@ -21,19 +21,25 @@ getadmin = form['admin'].value
 #判断端口是否找到
 portexist=0
 passwdcorrect=0
+showinfo=0
 admin=0
 #Check Admin
 for x in json:
-	if(str(x[u"user"]) == str(getadmin) && str(x[u"passwd"]) == str(getpasswd)):
-		admin=1
-	break;
+	if(str(x[u"user"]) == str(getadmin)):
+		if(str(x[u"passwd"]) == str(getpasswd)):
+			admin=1
+		break;
 
 #循环查找端口
 for x in json:
 	#当输入的端口与json端口一样时视为找到
 	if(str(x[u"port"]) == str(getport)):
 		portexist=1
-		if(str(x[u"passwd"]) == str(getpasswd) || admin=1):
+		if(str(x[u"passwd"]) == str(getpasswd)):
+			showinfo=1
+		if(admin=1):
+			showinfo=1
+		if(showinfo=1):
 			passwdcorrect=1
 			transfer_enable_int = int(x[u"transfer_enable"])/1024/1024;
 			d_int = round(float(x[u"d"])/1024/1024,0);
