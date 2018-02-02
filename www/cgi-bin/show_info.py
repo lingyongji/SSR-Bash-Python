@@ -17,7 +17,6 @@ form = cgi.FieldStorage()
 # 解析处理提交的数据
 getport = form['port'].value
 getpasswd = form['passwd'].value
-getadmin = form['admin'].value
 #判断端口是否找到
 portexist=0
 passwdcorrect=0
@@ -25,7 +24,7 @@ showinfo=0
 admin=0
 #Check Admin
 for x in json:
-	if(str(x[u"user"]) == str(getadmin)):
+	if(str(x[u"user"]) == "admin"):
 		if(str(x[u"passwd"]) == str(getpasswd)):
 			admin=1
 		break;
