@@ -80,8 +80,7 @@ if(portexist!=0 and passwdcorrect==0):
 
 
 #打印返回的内容
-html='''
-
+html1='''
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -102,6 +101,8 @@ html='''
             <div class="container">
                 <div class="card-wrap">
                     <div class="row">
+					'''
+html2='''
                         <div class="col-lg-4 col-sm-6">
                             <div class="card card-green">
                                 <a class="card-side" href="/"><span class="card-heading">端口信息</span></a>
@@ -126,6 +127,30 @@ html='''
                                 </div>
                             </div>
                         </div>
+						'''
+html21='''
+                        <div class="col-lg-4 col-sm-6">
+                            <div class="card card-green">
+                                <a class="card-side" href="/"><span class="card-heading">端口信息</span></a>
+                                <div class="card-main">
+                                    <div class="card-inner">
+                                        <p>
+                                            <strong>连接端口：</strong> %s </br></br>
+                                            <strong>流量信息：</strong> %s %s / %s %s</br></br>
+                                        </p>
+                                    </div>
+                                    <div class="card-action">
+                                        <ul class="nav nav-list pull-left">
+                                            <li>
+                                                <a href="../index.html"><span class="icon icon-check"></span>&nbsp;返回</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+						'''
+html3='''
                     </div>
                 </div>
             </div>
@@ -139,10 +164,33 @@ html='''
     <script src="../js/base.min.js" type="text/javascript"></script>
 </body>
 </html>
-
 '''
 
-print html % (myip,getport,d_int,d_unit,transfer_enable_int,transfer_unit,jsonmethod,jsonprotocol,jsonobfs)
+if(admin == 0):
+	print html1
+	print html2 % (myip,getport,d_int,d_unit,transfer_enable_int,transfer_unit,jsonmethod,jsonprotocol,jsonobfs)
+	print html3
+
+if(admin ==1):
+	print html1
+	
+	for x in json:
+	#当输入的端口与json端口一样时视为找到
+		transfer_enable_int = int(x[u"transfer_enable"])/1024/1024;
+		d_int = round(float(x[u"d"])/1024/1024,0);
+		transfer_unit = "MB"
+		d_unit = "MB"
+		userport = str(x[u"port"])
+		#流量单位转换
+		if(transfer_enable_int > 1024):
+			transfer_enable_int = transfer_enable_int/1024;
+			transfer_unit = "GB"
+		if(d_int > 1024):
+			d_int = round(d_int/1024,1);
+			d_unit = "GB"
+		print html21 % (userport,d_int,d_unit,transfer_enable_int,transfer_unit)		
+
+	print html3
 
 f.close();
 
