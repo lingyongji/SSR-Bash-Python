@@ -139,13 +139,6 @@ html21='''
                                             <strong>流量信息：</strong> %s %s / %s %s</br></br>
                                         </p>
                                     </div>
-                                    <div class="card-action">
-                                        <ul class="nav nav-list pull-left">
-                                            <li>
-                                                <a href="../index.html"><span class="icon icon-check"></span>&nbsp;返回</a>
-                                            </li>
-                                        </ul>
-                                    </div>
                                 </div>
                             </div>
                         </div>
