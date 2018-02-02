@@ -37,9 +37,9 @@ for x in json:
 		portexist=1
 		if(str(x[u"passwd"]) == str(getpasswd)):
 			showinfo=1
-		if(admin=1):
+		if(admin == 1):
 			showinfo=1
-		if(showinfo=1):
+		if(showinfo == 1):
 			passwdcorrect=1
 			transfer_enable_int = int(x[u"transfer_enable"])/1024/1024;
 			d_int = round(float(x[u"d"])/1024/1024,0);
