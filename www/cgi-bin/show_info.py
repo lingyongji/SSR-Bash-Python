@@ -7,6 +7,7 @@ import urllib2
 #取得本机外网IP
 myip = urllib2.urlopen('http://members.3322.org/dyndns/getip').read()
 myip=myip.strip()
+
 #加载SSR JSON文件
 f = file("/usr/local/shadowsocksr/mudb.json");
 json = json.load(f);
@@ -17,16 +18,21 @@ form = cgi.FieldStorage()
 # 解析处理提交的数据
 getport = form['port'].value
 getpasswd = form['passwd'].value
-#判断端口是否找到
+
+#判断端口和密码
 portexist=0
 passwdcorrect=0
 showinfo=0
+
+#判断管理员,请将管理员Name设置为admin，流量限制为服务器流量
 admin=0
-#Check Admin
+totallimit=0
 for x in json:
 	if(str(x[u"user"]) == "admin"):
 		if(str(x[u"passwd"]) == str(getpasswd)):
 			admin=1
+			#服务器流量单位默认为GB
+			totallimit = int(x[u"transfer_enable"])/1024/1024/1024;
 		break;
 
 #循环查找端口
@@ -57,7 +63,7 @@ for x in json:
 		break
 
 if(portexist==0):
-	getport = "未找到此端口，请检查是否输入错误！"
+	getport = "未找到此端口，请检查是否输入错误!"
 	myip = ""
 	transfer_enable_int = ""
 	d_int = ""
@@ -68,7 +74,7 @@ if(portexist==0):
 	jsonobfs = ""
 
 if(portexist!=0 and passwdcorrect==0):
-	getport = "连接密码输入错误，请重试"
+	getport = "连接密码输入错误，请重试!"
 	myip = ""
 	transfer_enable_int = ""
 	d_int = ""
@@ -79,7 +85,7 @@ if(portexist!=0 and passwdcorrect==0):
 	jsonobfs = ""
 
 
-#打印返回的内容
+#前端内容
 html1='''
 <!DOCTYPE html>
 <html lang="en">
@@ -159,18 +165,21 @@ html3='''
 </html>
 '''
 
+#返回user页面
 if(admin == 0):
 	print html1
 	print html2 % (myip,getport,d_int,d_unit,transfer_enable_int,transfer_unit,jsonmethod,jsonprotocol,jsonobfs)
 	print html3
 
+#返回admin页面
 if(admin ==1):
 	print html1
 	
+	totalused=0
 	for x in json:
-	#当输入的端口与json端口一样时视为找到
 		transfer_enable_int = int(x[u"transfer_enable"])/1024/1024;
 		d_int = round(float(x[u"d"])/1024/1024,0);
+		total = total + d_int;
 		transfer_unit = "MB"
 		d_unit = "MB"
 		userport = str(x[u"port"])
@@ -183,6 +192,8 @@ if(admin ==1):
 			d_unit = "GB"
 		print html21 % (userport,d_int,d_unit,transfer_enable_int,transfer_unit)		
 
+	print html21 % ("Total",round(totalused/1024,1),"GB",totallimit,"GB")
+	
 	print html3
 
 f.close();
