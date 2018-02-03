@@ -179,7 +179,7 @@ if(admin ==1):
 	for x in json:
 		transfer_enable_int = int(x[u"transfer_enable"])/1024/1024;
 		d_int = round(float(x[u"d"])/1024/1024,0);
-		total = total + d_int;
+		totalused = totalused + d_int;
 		transfer_unit = "MB"
 		d_unit = "MB"
 		userport = str(x[u"port"])
