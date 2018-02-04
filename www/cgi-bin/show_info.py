@@ -47,18 +47,18 @@ for x in json:
 		if(showinfo == 1):
 			passwdcorrect=1
 			transfer_enable_int = int(x[u"transfer_enable"])/1024/1024;
-			d_int = round(float(x[u"d"])/1024/1024,0);
+			d_int = round(float(x[u"d"])/1024/1024,2);
 			transfer_unit = "MB"
 			d_unit = "MB"
 			jsonmethod=str(x[u"method"])
 			jsonobfs=str(x[u"obfs"])
 			jsonprotocol=str(x[u"protocol"])
 			#流量单位转换
-			if(transfer_enable_int > 1024):
+			if(transfer_enable_int > 999):
 				transfer_enable_int = transfer_enable_int/1024;
 				transfer_unit = "GB"
 			if(d_int > 1024):
-				d_int = round(d_int/1024,1);
+				d_int = round(d_int/1024,2);
 				d_unit = "GB"
 		break
 
