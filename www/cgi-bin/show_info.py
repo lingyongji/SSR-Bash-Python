@@ -141,6 +141,7 @@ html21='''
                                 <div class="card-main">
                                     <div class="card-inner">
                                         <p>
+                                            <strong>用户名：</strong> %s </br></br>
                                             <strong>连接端口：</strong> %s </br></br>
                                             <strong>流量信息：</strong> %s %s / %s %s</br></br>
                                         </p>
@@ -182,6 +183,7 @@ if(admin ==1):
 		totalused = totalused + d_int;
 		transfer_unit = "MB"
 		d_unit = "MB"
+		username = str(x[u"user"])
 		userport = str(x[u"port"])
 		#流量单位转换
 		if(transfer_enable_int > 1024):
@@ -190,7 +192,7 @@ if(admin ==1):
 		if(d_int > 1024):
 			d_int = round(d_int/1024,1);
 			d_unit = "GB"
-		print html21 % (userport,d_int,d_unit,transfer_enable_int,transfer_unit)		
+		print html21 % (username,userport,d_int,d_unit,transfer_enable_int,transfer_unit)		
 
 	print html21 % ("Total",round(totalused/1024,1),"GB",totallimit,"GB")
 	
