@@ -179,22 +179,22 @@ if(admin ==1):
 	totalused=0
 	for x in json:
 		transfer_enable_int = int(x[u"transfer_enable"])/1024/1024;
-		d_int = round(float(x[u"d"])/1024/1024,0);
+		d_int = round(float(x[u"d"])/1024/1024,2);
 		totalused = totalused + d_int;
 		transfer_unit = "MB"
 		d_unit = "MB"
 		username = str(x[u"user"])
 		userport = str(x[u"port"])
 		#流量单位转换
-		if(transfer_enable_int > 1024):
+		if(transfer_enable_int > 999):
 			transfer_enable_int = transfer_enable_int/1024;
 			transfer_unit = "GB"
 		if(d_int > 1024):
-			d_int = round(d_int/1024,1);
+			d_int = round(d_int/1024,2);
 			d_unit = "GB"
 		print html21 % (username,userport,d_int,d_unit,transfer_enable_int,transfer_unit)		
 
-	print html21 % (myip,"Total",round(totalused/1024,1),"GB",totallimit,"GB")
+	print html21 % (myip,"Total",round(totalused/1024,2),"GB",totallimit,"GB")
 	
 	print html3
 
