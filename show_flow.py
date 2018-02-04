@@ -10,16 +10,16 @@ print "用户名\t端口\t已用流量\t流量限制"
 for x in json:
   #Convert Unit To MB
   transfer_enable_int = int(x[u"transfer_enable"])/1024/1024;
-  d_int = round(float(x[u"d"])/1024/1024,0);
+  d_int = round(float(x[u"d"])/1024/1024,1);
   transfer_unit = "MB"
   d_unit = "MB"
 
   #Convert Unit To GB For Those Number Which Exceeds 1024MB
-  if(transfer_enable_int > 1024):
+  if(transfer_enable_int > 999):
   	transfer_enable_int = transfer_enable_int/1024;
   	transfer_unit = "GB"
   if(d_int > 1024):
-    d_int = round(float(d_int)/1024,1);
+    d_int = round(float(d_int)/1024,2);
     d_unit = "GB"
 
   #Print In Format
