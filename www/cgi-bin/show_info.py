@@ -141,7 +141,7 @@ html21='''
                                 <div class="card-main">
                                     <div class="card-inner">
                                         <p>
-                                            <strong>用户名：</strong> %s </br></br>
+                                            <strong>用户名称：</strong> %s </br></br>
                                             <strong>连接端口：</strong> %s </br></br>
                                             <strong>流量信息：</strong> %s %s / %s %s</br></br>
                                         </p>
