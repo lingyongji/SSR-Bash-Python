@@ -194,7 +194,7 @@ if(admin ==1):
 			d_unit = "GB"
 		print html21 % (username,userport,d_int,d_unit,transfer_enable_int,transfer_unit)		
 
-	print html21 % (myip,round(totalused/1024,1),"GB",totallimit,"GB")
+	print html21 % (myip,"Total",round(totalused/1024,1),"GB",totallimit,"GB")
 	
 	print html3
 
