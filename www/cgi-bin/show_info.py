@@ -7,6 +7,7 @@ import urllib2
 #取得本机外网IP
 myip = urllib2.urlopen('http://members.3322.org/dyndns/getip').read()
 myip=myip.strip()
+
 #加载SSR JSON文件
 f = file("/usr/local/shadowsocksr/mudb.json");
 json = json.load(f);
@@ -17,16 +18,21 @@ form = cgi.FieldStorage()
 # 解析处理提交的数据
 getport = form['port'].value
 getpasswd = form['passwd'].value
-#判断端口是否找到
+
+#判断端口和密码
 portexist=0
 passwdcorrect=0
 showinfo=0
+
+#判断管理员,请将管理员Name设置为admin，流量限制为服务器流量
 admin=0
-#Check Admin
+totallimit=0
 for x in json:
 	if(str(x[u"user"]) == "admin"):
 		if(str(x[u"passwd"]) == str(getpasswd)):
 			admin=1
+			#服务器流量单位默认为GB
+			totallimit = int(x[u"transfer_enable"])/1024/1024/1024;
 		break;
 
 #循环查找端口
@@ -41,23 +47,23 @@ for x in json:
 		if(showinfo == 1):
 			passwdcorrect=1
 			transfer_enable_int = int(x[u"transfer_enable"])/1024/1024;
-			d_int = round(float(x[u"d"])/1024/1024,0);
+			d_int = round(float(x[u"d"])/1024/1024,2);
 			transfer_unit = "MB"
 			d_unit = "MB"
 			jsonmethod=str(x[u"method"])
 			jsonobfs=str(x[u"obfs"])
 			jsonprotocol=str(x[u"protocol"])
 			#流量单位转换
-			if(transfer_enable_int > 1024):
+			if(transfer_enable_int > 999):
 				transfer_enable_int = transfer_enable_int/1024;
 				transfer_unit = "GB"
 			if(d_int > 1024):
-				d_int = round(d_int/1024,1);
+				d_int = round(d_int/1024,2);
 				d_unit = "GB"
 		break
 
 if(portexist==0):
-	getport = "未找到此端口，请检查是否输入错误！"
+	getport = "未找到此端口，请检查是否输入错误!"
 	myip = ""
 	transfer_enable_int = ""
 	d_int = ""
@@ -68,7 +74,7 @@ if(portexist==0):
 	jsonobfs = ""
 
 if(portexist!=0 and passwdcorrect==0):
-	getport = "连接密码输入错误，请重试"
+	getport = "连接密码输入错误，请重试!"
 	myip = ""
 	transfer_enable_int = ""
 	d_int = ""
@@ -79,7 +85,7 @@ if(portexist!=0 and passwdcorrect==0):
 	jsonobfs = ""
 
 
-#打印返回的内容
+#前端内容
 html1='''
 <!DOCTYPE html>
 <html lang="en">
@@ -135,16 +141,10 @@ html21='''
                                 <div class="card-main">
                                     <div class="card-inner">
                                         <p>
+                                            <strong>用户名称：</strong> %s </br></br>
                                             <strong>连接端口：</strong> %s </br></br>
                                             <strong>流量信息：</strong> %s %s / %s %s</br></br>
                                         </p>
-                                    </div>
-                                    <div class="card-action">
-                                        <ul class="nav nav-list pull-left">
-                                            <li>
-                                                <a href="../index.html"><span class="icon icon-check"></span>&nbsp;返回</a>
-                                            </li>
-                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -166,30 +166,36 @@ html3='''
 </html>
 '''
 
+#返回user页面
 if(admin == 0):
 	print html1
 	print html2 % (myip,getport,d_int,d_unit,transfer_enable_int,transfer_unit,jsonmethod,jsonprotocol,jsonobfs)
 	print html3
 
+#返回admin页面
 if(admin ==1):
 	print html1
 	
+	totalused=0
 	for x in json:
-	#当输入的端口与json端口一样时视为找到
 		transfer_enable_int = int(x[u"transfer_enable"])/1024/1024;
-		d_int = round(float(x[u"d"])/1024/1024,0);
+		d_int = round(float(x[u"d"])/1024/1024,2);
+		totalused = totalused + d_int;
 		transfer_unit = "MB"
 		d_unit = "MB"
+		username = str(x[u"user"])
 		userport = str(x[u"port"])
 		#流量单位转换
-		if(transfer_enable_int > 1024):
+		if(transfer_enable_int > 999):
 			transfer_enable_int = transfer_enable_int/1024;
 			transfer_unit = "GB"
 		if(d_int > 1024):
-			d_int = round(d_int/1024,1);
+			d_int = round(d_int/1024,2);
 			d_unit = "GB"
-		print html21 % (userport,d_int,d_unit,transfer_enable_int,transfer_unit)		
+		print html21 % (username,userport,d_int,d_unit,transfer_enable_int,transfer_unit)		
 
+	print html21 % (myip,"Total",round(totalused/1024,2),"GB",totallimit,"GB")
+	
 	print html3
 
 f.close();
