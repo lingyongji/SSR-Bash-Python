@@ -31,9 +31,9 @@ if [[ $devc == 1 ]];then
 fi
 
 if [[ $devc == 2 ]];then
-    cd /usr/lcoal/shadowsocksr
+    cd /usr/local/shadowsocksr
     git pull
-    bash /usr/lcoal/shadowsocksr/stop.sh
+    bash /usr/local/shadowsocksr/stop.sh
     bash /usr/local/shadowsocksr/logrun.sh
 	iptables-restore < /etc/iptables.up.rules
 	echo "SSR升级成功！"
