@@ -39,54 +39,127 @@ echo ""
 read -p "输入用户名： " uname
 read -p "输入端口： " uport
 read -p "输入密码： " upass
+
+
 echo ""
 echo "加密方式"
 echo '1.none'
-echo '2.aes-128-cfb'
-echo '3.aes-256-cfb'
-echo '4.aes-128-ctr'
-echo '5.aes-256-ctr'
-echo '6.rc4-md5'
-echo '7.chacha20'
-echo '8.chacha20-ietf'
-echo '9.salsa20'
+echo '2.aes-128-ctr'
+echo '3.aes-192-ctr'
+echo '4.aes-256-ctr'
+echo '5.aes-128-cfb'
+echo '6.aes-192-cfb'
+echo '7.aes-256-cfb'
+echo '8.rc4'
+echo '9.rc4-md5'
+echo '10.rc4-md5-6'
+echo '11.salsa20'
+echo '12.chacha20'
+echo '13.xsalsa20'
+echo '14.xchacha20'
+echo '15.chacha20-ietf'
 while :; do echo
 	read -p "输入加密方式： " um
-	if [[ ! $um =~ ^[1-9]$ ]]; then
+	if [[ ! $um =~ ^[1-15]$ ]]; then
 		echo "输入错误! 请输入正确的数字!"
 	else
 		break	
 	fi
 done
+
+if [[ $um == 1 ]];then
+	um1="none"
+fi
+if [[ $um == 2 ]];then
+	um1="aes-128-ctr"
+fi
+if [[ $um == 3 ]];then
+	um1="aes-192-ctr"
+fi
+if [[ $um == 4 ]];then
+	um1="aes-256-ctr"
+fi
+if [[ $um == 5 ]];then
+	um1="aes-128-cfb"
+fi
+if [[ $um == 6 ]];then
+	um1="aes-192-cfb"
+fi
+if [[ $um == 7 ]];then
+	um1="aes-256-cfb"
+fi
+if [[ $um == 8 ]];then
+	um1="rc4"
+fi
+if [[ $um == 9 ]];then
+	um1="rc4-md5"
+fi
+if [[ $um == 10 ]];then
+	um1="rc4-md5-6"
+fi
+if [[ $um == 11 ]];then
+	um1="salsa20"
+fi
+if [[ $um == 12 ]];then
+	um1="chacha20"
+fi
+if [[ $um == 13 ]];then
+	um1="xsalsa20"
+fi
+if [[ $um == 14 ]];then
+	um1="xchacha20"
+fi
+if [[ $um == 15 ]];then
+	um1="chacha20-ietf"
+fi
 
 
 echo "协议方式"
 echo '1.origin'
-echo '2.auth_sha1_v4'
-echo '3.auth_aes128_md5'
-echo '4.auth_aes128_sha1'
-echo '5.verify_deflate'
-echo '6.auth_chain_a'
+echo '2.auth_aes128_md5'
+echo '3.auth_aes128_sha1'
+echo '4.auth_chain_a'
+echo '5.auth_chain_b'
+echo '6.auth_chain_c'
+echo '7.auth_chain_d'
+echo '8.auth_chain_e'
+echo '9.auth_chain_f'
 while :; do echo
 	read -p "输入协议方式： " ux
-	if [[ ! $ux =~ ^[1-6]$ ]]; then
+	if [[ ! $ux =~ ^[1-9]$ ]]; then
 		echo "输入错误! 请输入正确的数字!"
 	else
 		break	
 	fi
 done
 
-if [[ $ux == 2 ]];then
-	while :; do echo
-		read -p "是否兼容原版协议（y/n）： " ifprotocolcompatible
-		if [[ ! $ifprotocolcompatible =~ ^[y,n]$ ]]; then
-			echo "输入错误! 请输入y或者n!"
-		else
-			break
-		fi
-	done
+if [[ $ux == 1 ]];then
+	ux1="origin"
 fi
-
+if [[ $ux == 2 ]];then
+	ux1="auth_aes128_md5"
+fi
+if [[ $ux == 3 ]];then
+	ux1="auth_aes128_sha1"
+fi
+if [[ $ux == 4 ]];then
+	ux1="auth_chain_a"
+fi
+if [[ $ux == 5 ]];then
+	ux1="auth_chain_b"
+fi
+if [[ $ux == 6 ]];then
+	ux1="auth_chain_c"
+fi
+if [[ $ux == 7 ]];then
+	ux1="auth_chain_d"
+fi
+if [[ $ux == 8 ]];then
+	ux1="auth_chain_e"
+fi
+if [[ $ux == 9 ]];then
+	ux1="auth_chain_f"
+fi
 
 
 echo "混淆方式"
@@ -114,55 +187,6 @@ if [[ $uo != 1 ]];then
 	done
 fi
 
-
-if [[ $um == 1 ]];then
-	um1="none"
-fi
-if [[ $um == 2 ]];then
-	um1="aes-128-cfb"
-fi
-if [[ $um == 3 ]];then
-	um1="aes-256-cfb"
-fi
-if [[ $um == 4 ]];then
-	um1="aes-128-ctr"
-fi
-if [[ $um == 5 ]];then
-	um1="aes-256-ctr"
-fi
-if [[ $um == 6 ]];then
-	um1="rc4-md5"
-fi
-if [[ $um == 7 ]];then
-	um1="chacha20"
-fi
-if [[ $um == 8 ]];then
-	um1="chacha20-ietf"
-fi
-if [[ $um == 9 ]];then
-	um1="salsa20"
-fi
-
-if [[ $ux == 1 ]];then
-	ux1="origin"
-fi
-if [[ $ux == 2 ]];then
-	ux1="auth_sha1_v4"
-fi
-if [[ $ux == 3 ]];then
-	ux1="auth_aes128_md5"
-fi
-if [[ $ux == 4 ]];then
-	ux1="auth_aes128_sha1"
-fi
-if [[ $ux == 5 ]];then
-	ux1="verify_deflate"
-fi
-
-if [[ $ux == 6 ]];then
-	ux1="auth_chain_a"
-fi
-
 if [[ $uo == 1 ]];then
 	uo1="plain"
 fi
@@ -180,18 +204,16 @@ if [[ $ifobfscompatible == y ]]; then
 	uo1=${uo1}"_compatible"
 fi
 
-if [[ $ifprotocolcompatible == y ]]; then
-	ux1=${ux1}"_compatible"
-fi
 
 while :; do echo
 	read -p "输入流量限制(只需输入数字，单位：GB)： " ut
 	if [[ "$ut" =~ ^(-?|\+?)[0-9]+(\.?[0-9]+)?$ ]];then
 	   break
 	else
-	   echo 'Input Error!'
+	   echo '输入错误!'
 	fi
 done
+
 
 while :; do echo
 	read -p "是否开启端口限速（y/n）： " iflimitspeed
@@ -202,17 +224,17 @@ while :; do echo
 	fi
 done
 
+
 if [[ $iflimitspeed == y ]]; then
 	while :; do echo
 		read -p "输入端口总限速(只需输入数字，单位：KB/s)： " us
 		if [[ "$us" =~ ^(-?|\+?)[0-9]+(\.?[0-9]+)?$ ]];then
 	   		break
 		else
-	   		echo 'Input Error!'
+	   		echo '输入错误!'
 		fi
 	done
 fi
-
 
 
 #Set Firewalls
