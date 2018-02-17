@@ -80,7 +80,7 @@ while :; do echo
         fi
     fi
     if [[ $lsid == 2 ]];then
-        if [[ $ec -ge 1 && $ec -le 10 ]; then
+        if [[ $ec -ge 1 && $ec -le 10 ]]; then
             echo "输入错误! 请输入正确的数字!"
         else
             break
