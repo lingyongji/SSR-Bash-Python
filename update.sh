@@ -6,11 +6,12 @@ export PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 echo "1.更新SSR-Bsah"
 echo "2.更新SSR"
+echo "3.开启BBR(需重启)"
 
 while :; do echo
     read -p "请选择： " devc
     [ -z "$devc" ] && ssr && break
-    if [[ ! $devc =~ ^[1-2]$ ]]; then
+    if [[ ! $devc =~ ^[1-3]$ ]]; then
         echo "输入错误! 请输入正确的数字!"
     else
         break
@@ -32,7 +33,12 @@ if [[ $devc == 2 ]];then
     git pull
     bash /usr/local/shadowsocksr/stop.sh
     bash /usr/local/shadowsocksr/logrun.sh
-	iptables-restore < /etc/iptables.up.rules
-	echo "SSR升级成功！"
-	ssr
+    iptables-restore < /etc/iptables.up.rules
+    echo "SSR升级成功！"
+    ssr
+fi
+
+if [[ $devc == 3 ]];then
+    cd /usr/local
+    wget -N --no-check-certificate https://raw.githubusercontent.com/lingyongji/across/master/bbr.sh && chmod +x bbr.sh && ./bbr.sh
 fi
