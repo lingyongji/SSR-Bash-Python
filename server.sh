@@ -47,10 +47,10 @@ echo "直接回车返回上级菜单"
 while :; do echo
     read -p "请选择： " serverc
     [ -z "$serverc" ] && ssr && break
-    if [[ "$serverc" -ge "1" && "$serverc" -le "10" ]]; then
-        echo "输入错误! 请输入正确的数字!"
-    else
+    if [[ $serverc -ge 1 && $serverc -le 10 ]]; then
         break
+    else
+        echo "输入错误! 请输入正确的数字!"
     fi
 done
 
