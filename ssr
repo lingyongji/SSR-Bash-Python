@@ -10,13 +10,13 @@ echo 'Function Club 无限期停更说明'
 echo 'https://www.ixh.me/2017/05/function-club-stop/'
 echo "输入数字选择功能："
 echo ""
-echo "1.服务器控制"
+echo "1.SSR服务管理"
 echo "2.用户管理"
 echo "3.全局流量管理"
 echo "4.更新管理"
 echo "5.实验性功能"
 echo "6.程序自检"
-echo "7.帮助手册"
+echo "7.SSR-Bash目录"
 while :; do echo
     read -p "请选择： " choice
     if [[ ! $choice =~ ^[1-7]$ ]]; then
