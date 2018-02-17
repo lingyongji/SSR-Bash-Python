@@ -1,0 +1,1 @@
+print "SSR-Bash-Helper"

@@ -16,35 +16,46 @@ echo "3.全局流量管理"
 echo "4.更新管理"
 echo "5.实验性功能"
 echo "6.程序自检"
+echo "7.帮助手册"
 while :; do echo
-	read -p "请选择： " choice
-	if [[ ! $choice =~ ^[1-6]$ ]]; then
-		echo "输入错误! 请输入正确的数字!"
-	else
-		break	
-	fi
+    read -p "请选择： " choice
+    if [[ ! $choice =~ ^[1-7]$ ]]; then
+        echo "输入错误! 请输入正确的数字!"
+    else
+        break
+    fi
 done
 
 if [[ $choice == 1 ]];then
-	bash /usr/local/SSR-Bash-Python/server.sh
+    bash /usr/local/SSR-Bash-Python/server.sh
 fi
 
 if [[ $choice == 2 ]];then
-	bash /usr/local/SSR-Bash-Python/user.sh
+    bash /usr/local/SSR-Bash-Python/user.sh
 fi
 
 if [[ $choice == 3 ]];then
-	bash /usr/local/SSR-Bash-Python/traffic.sh
+    bash /usr/local/SSR-Bash-Python/traffic.sh
 fi
 
 if [[ $choice == 4 ]];then
-	bash /usr/local/SSR-Bash-Python/update.sh
+    bash /usr/local/SSR-Bash-Python/update.sh
 fi
 
 if [[ $choice == 5 ]];then
-	bash /usr/local/SSR-Bash-Python/dev.sh
+    bash /usr/local/SSR-Bash-Python/dev.sh
 fi
 
 if [[ $choice == 6 ]];then
-	bash /usr/local/SSR-Bash-Python/self-check.sh
+    bash /usr/local/SSR-Bash-Python/self-check.sh
+fi
+
+if [[ $choice == 7 ]];then
+    python /usr/local/SSR-Bash-Python/helper.py
+    echo ""
+    while :; do echo
+        read -p "按回车退出" enter
+        [ -z "$enter" ] && ssr && break
+        echo "输入错误!"
+    done
 fi
