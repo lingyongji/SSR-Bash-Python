@@ -80,7 +80,7 @@ while :; do echo
         fi
     fi
     if [[ $lsid == 2 ]];then
-        if [ $ec -ge 1 -a $ec -le 10 ]; then
+        if [[ $ec -ge 1 && $ec -le 10 ]; then
             echo "输入错误! 请输入正确的数字!"
         else
             break
@@ -122,7 +122,7 @@ if [[ $ec == 2 ]];then
     echo '15.chacha20-ietf'
     while :; do echo
         read -p "输入新加密方式： " um
-        if [ $um -ge 1 -a $um -le 15 ]; then
+        if [[ $um -ge 1 && $um -le 15 ]]; then
             echo "输入错误! 请输入正确的数字!"
         else
             break
