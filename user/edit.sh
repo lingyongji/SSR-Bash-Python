@@ -66,25 +66,13 @@ echo "6.修改混淆参数"
 echo "7.修改流量"
 echo "8.修改端口限制"
 echo "9.修改总端口限速"
-if [[ $lsid == 2 ]];then
-    echo "10.修改用户名"
-fi
 echo ""
 while :; do echo
     read -p "请选择： " ec
-    if [[ $lsid == 1 ]];then
-        if [[ ! $ec =~ ^[1-9]$ ]]; then
-            echo "输入错误! 请输入正确的数字!"
-        else
-            break
-        fi
-    fi
-    if [[ $lsid == 2 ]];then
-        if [[ $ec -ge 1 && $ec -le 10 ]]; then
-            break
-        else
-            echo "输入错误! 请输入正确的数字!"
-        fi
+    if [[ ! $ec =~ ^[1-9]$ ]]; then
+        echo "输入错误! 请输入正确的数字!"
+    else
+        break
     fi
 done
 
@@ -390,11 +378,4 @@ if [[ $ec == 9 ]];then
         python mujson_mgr.py -e -p $uid -S $us
         echo "端口号为 $uid 的用户端口限速已修改为 $us KB/s"
     fi
-fi
-
-if [[ $ec == 10 ]];then
-    read -p "输入新用户名： " username
-    cd /usr/local/shadowsocksr
-    python mujson_mgr.py -e -p $uid -u $username
-    echo "端口号为 $uid 的用户名已设置成 $username"
 fi
