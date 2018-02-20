@@ -4,7 +4,7 @@ export PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 #Check Root
 [ $(id -u) != "0" ] && { echo "Error: You must be root to run this script"; exit 1; }
 
-echo "1.显示所有用户流量信息"
+echo "1.显示全部用户流量"
 echo "2.清空指定用户流量"
 echo "3.清空全部用户流量"
 echo "直接回车返回上级菜单"
