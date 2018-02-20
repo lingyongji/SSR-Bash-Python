@@ -6,7 +6,7 @@ export PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 echo "1.更新SSR-Bsah"
 echo "2.更新SSR"
-echo "3.开启BBR(需重启)"
+echo "3.开启BBR(会提示重启，请确认)"
 
 while :; do echo
     read -p "请选择： " devc
