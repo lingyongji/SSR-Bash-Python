@@ -257,7 +257,7 @@ while [ $portsnum -gt 0 ];do
     if [[ $yorn == "y" ]];then
         uname="p"$startport
         uport=$startport
-        upass=$(Randpassword)
+        upass=`Randpassword`
         let startport++
         let portsnum--
     else
