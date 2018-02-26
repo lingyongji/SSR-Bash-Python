@@ -36,9 +36,25 @@ fi
 
 echo "你选择了添加用户"
 echo ""
-read -p "输入用户名： " uname
-read -p "输入端口： " uport
-read -p "输入密码： " upass
+while :; do echo
+    read -p "是否批量添加(y/n):" yorn
+    if [[ $yorn =~ ^[y,n]$ ]];then
+        echo "输入错误! 请输入y或者n!"
+    else
+        if [[ $yorn == "y" ]];then
+            echo "端口范围为0-65535，请务必保证最大端口在该范围内"
+            read -p "输入批量数量：" portsnum
+            read -p "输入起始端口：" startport
+			break
+        else
+            portsnum=1
+            read -p "输入用户名： " uname
+            read -p "输入端口： " uport
+            read -p "输入密码： " upass
+			break
+        fi
+    fi
+done
 
 
 echo ""
@@ -237,48 +253,68 @@ if [[ $iflimitspeed == y ]]; then
 fi
 
 
-#Set Firewalls
-if [[ ${OS} =~ ^Ubuntu$|^Debian$ ]];then
-    iptables-restore < /etc/iptables.up.rules
-    clear
-    iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport $uport -j ACCEPT
-    iptables -I INPUT -m state --state NEW -m udp -p udp --dport $uport -j ACCEPT
-    iptables-save > /etc/iptables.up.rules
-fi
-
-if [[ ${OS} == CentOS ]];then
-    if [[ $CentOS_RHEL_version == 7 ]];then
+while [ $portsnum -gt 0 ];do
+    if [[ $yorn == "y" ]];then
+        uname="p"$startport
+        uport=startport
+        upass=$(Randpassword)
+        let startport++
+        let portsnum--
+    fi
+    
+    #Set Firewalls
+    if [[ ${OS} =~ ^Ubuntu$|^Debian$ ]];then
         iptables-restore < /etc/iptables.up.rules
+        clear
         iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport $uport -j ACCEPT
         iptables -I INPUT -m state --state NEW -m udp -p udp --dport $uport -j ACCEPT
         iptables-save > /etc/iptables.up.rules
+    fi
+    
+    if [[ ${OS} == CentOS ]];then
+        if [[ $CentOS_RHEL_version == 7 ]];then
+            iptables-restore < /etc/iptables.up.rules
+            iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport $uport -j ACCEPT
+            iptables -I INPUT -m state --state NEW -m udp -p udp --dport $uport -j ACCEPT
+            iptables-save > /etc/iptables.up.rules
+        else
+            iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport $uport -j ACCEPT
+            iptables -I INPUT -m state --state NEW -m udp -p udp --dport $uport -j ACCEPT
+            /etc/init.d/iptables save
+            /etc/init.d/iptables restart
+        fi
+    fi
+    
+    
+    #Run ShadowsocksR
+    echo "用户添加成功！用户信息如下："
+    cd /usr/local/shadowsocksr
+    
+    if [[ $iflimitspeed == y ]]; then
+        python mujson_mgr.py -a -u $uname -p $uport -k $upass -m $um1 -O $ux1 -o $uo1 -t $ut -S $us
     else
-        iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport $uport -j ACCEPT
-        iptables -I INPUT -m state --state NEW -m udp -p udp --dport $uport -j ACCEPT
-        /etc/init.d/iptables save
-        /etc/init.d/iptables restart
-    fi
-fi
-
-
-#Run ShadowsocksR
-echo "用户添加成功！用户信息如下："
-cd /usr/local/shadowsocksr
-
-if [[ $iflimitspeed == y ]]; then
-    python mujson_mgr.py -a -u $uname -p $uport -k $upass -m $um1 -O $ux1 -o $uo1 -t $ut -S $us
-else
-    python mujson_mgr.py -a -u $uname -p $uport -k $upass -m $um1 -O $ux1 -o $uo1 -t $ut
-fi
-
-
-SSRPID=$(ps -ef|grep 'python server.py m' |grep -v grep |awk '{print $2}')
-if [[ $SSRPID == "" ]]; then
-    
-    if [[ ${OS} =~ ^Ubuntu$|^Debian$ ]];then
-        iptables-restore < /etc/iptables.up.rules
+        python mujson_mgr.py -a -u $uname -p $uport -k $upass -m $um1 -O $ux1 -o $uo1 -t $ut
     fi
     
-    bash /usr/local/shadowsocksr/logrun.sh
-    echo "ShadowsocksR服务器已启动"
-fi
+    
+    SSRPID=$(ps -ef|grep 'python server.py m' |grep -v grep |awk '{print $2}')
+    if [[ $SSRPID == "" ]]; then
+        
+        if [[ ${OS} =~ ^Ubuntu$|^Debian$ ]];then
+            iptables-restore < /etc/iptables.up.rules
+        fi
+        
+        bash /usr/local/shadowsocksr/logrun.sh
+        echo "ShadowsocksR服务器已启动"
+    fi
+done
+
+Randpassword() {
+    index=0
+    pass=""
+    for i in {a..z}; do arr[index]=$i; index=`expr ${index} + 1`; done
+    for i in {A..Z}; do arr[index]=$i; index=`expr ${index} + 1`; done
+    for i in {0..9}; do arr[index]=$i; index=`expr ${index} + 1`; done
+    for i in {1..10}; do pass="$pass${arr[$RANDOM%$index]}"; done
+    echo $pass
+}
