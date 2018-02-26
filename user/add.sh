@@ -38,7 +38,7 @@ echo "你选择了添加用户"
 echo ""
 while :; do echo
     read -p "是否批量添加(y/n):" yorn
-    if [[ $yorn =~ ^[y,n]$ ]];then
+    if [[ ! $yorn =~ ^[y,n]$ ]];then
         echo "输入错误! 请输入y或者n!"
     else
         if [[ $yorn == "y" ]];then
