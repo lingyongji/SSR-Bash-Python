@@ -45,13 +45,13 @@ while :; do echo
             echo "端口范围为0-65535，请务必保证最大端口在该范围内"
             read -p "输入批量数量：" portsnum
             read -p "输入起始端口：" startport
-			break
+            break
         else
             portsnum=1
             read -p "输入用户名： " uname
             read -p "输入端口： " uport
             read -p "输入密码： " upass
-			break
+            break
         fi
     fi
 done
@@ -257,7 +257,6 @@ while [ $portsnum -gt 0 ];do
     if [[ $yorn == "y" ]];then
         uname="p"$startport
         uport=$startport
-        upass=`Randpassword`
         let startport++
         let portsnum--
     else
@@ -291,11 +290,18 @@ while [ $portsnum -gt 0 ];do
     #Run ShadowsocksR
     echo "用户添加成功！用户信息如下："
     cd /usr/local/shadowsocksr
-    
-    if [[ $iflimitspeed == y ]]; then
-        python mujson_mgr.py -a -u $uname -p $uport -k $upass -m $um1 -O $ux1 -o $uo1 -t $ut -S $us
+    if [[ $yorn == "n" ]];then
+        if [[ $iflimitspeed == y ]]; then
+            python mujson_mgr.py -a -u $uname -p $uport -k $upass -m $um1 -O $ux1 -o $uo1 -t $ut -S $us
+        else
+            python mujson_mgr.py -a -u $uname -p $uport -k $upass -m $um1 -O $ux1 -o $uo1 -t $ut
+        fi
     else
-        python mujson_mgr.py -a -u $uname -p $uport -k $upass -m $um1 -O $ux1 -o $uo1 -t $ut
+        if [[ $iflimitspeed == y ]]; then
+            python mujson_mgr.py -a -u $uname -p $uport -m $um1 -O $ux1 -o $uo1 -t $ut -S $us
+        else
+            python mujson_mgr.py -a -u $uname -p $uport -m $um1 -O $ux1 -o $uo1 -t $ut
+        fi
     fi
     
     
