@@ -256,10 +256,12 @@ fi
 while [ $portsnum -gt 0 ];do
     if [[ $yorn == "y" ]];then
         uname="p"$startport
-        uport=startport
+        uport=$startport
         upass=Randpassword
         let startport++
         let portsnum--
+    else
+        portsnum=0
     fi
     
     #Set Firewalls
