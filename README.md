@@ -6,7 +6,7 @@ ShadowsocksR多用户管理脚本（基于官方mujson版本）
 
 ## 更新日志 ##
 - 2018-2-27 v1.2 天意修改
-- 1.批量添加用户功能；2.重置用户流量配置功能（需更新ssr）
+- 1.批量添加用户功能；2.重置用户流量配置功能（需更新ssr天意改版）
 - 
 - 2018-2-17 v1.1 天意修改
 - 1.增加SSR更新功能；2.可修改日志输出方式；3.新增最新加密、协议；4.优化WEB查询；5.集成BBR开启功能
@@ -34,10 +34,6 @@ ShadowsocksR多用户管理脚本（基于官方mujson版本）
 - 无法删除最后一名用户（官方限制）
 - 未设置开机启动
 
-## 替换安装法
-正在使用原地址下载的脚本又不想丢失数据？    
-`cd /usr/local/ && rm -rf SSR-Bash-Python && git clone https://github.com/lingyongji/SSR-Bash-Python.git && cp SSR-Bash-Python/ssr /usr/local/bin/ssr`
-
 ## 安装 ##
     wget -N --no-check-certificate https://raw.githubusercontent.com/lingyongji/SSR-Bash-Python/master/install.sh && bash install.sh
 
@@ -52,9 +48,5 @@ ShadowsocksR多用户管理脚本（基于官方mujson版本）
 
 ![https://raw.githubusercontent.com/lingyongji/SSR-Bash-Python/master/2.png](2.png)
 
-## 参考资料 ##
-[ShadowsocksR](https://github.com/FunctionClub/shadowsocksr)
+![https://raw.githubusercontent.com/lingyongji/SSR-Bash-Python/master/3.png](3.png)
 
-[ShadowsocksR-manyuser mudbjson](https://github.com/breakwa11/shadowsocks-rss/wiki/Server-Setup(manyuser-with-mudbjson))
-
-[SSR-Bash](https://github.com/FunctionClub/SSR-Bash)
