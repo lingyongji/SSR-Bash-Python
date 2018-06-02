@@ -6,7 +6,6 @@ export PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 echo "1.更新SSR-Bsah"
 echo "2.更新SSR"
-echo "3.开启BBR(会提示重启，请确认)"
 
 while :; do echo
     read -p "请选择： " devc
@@ -36,9 +35,4 @@ if [[ $devc == 2 ]];then
     iptables-restore < /etc/iptables.up.rules
     echo "SSR升级成功！"
     ssr
-fi
-
-if [[ $devc == 3 ]];then
-    cd /usr/local
-    wget -N --no-check-certificate https://raw.githubusercontent.com/lingyongji/across/master/bbr.sh && chmod +x bbr.sh && ./bbr.sh
 fi
