@@ -18,7 +18,7 @@ for x in json:
   if(transfer_enable_int > 999):
   	transfer_enable_int = transfer_enable_int/1024;
   	transfer_unit = "GB"
-  if(d_int > 1024):
+  if(d_int > 999):
     d_int = round(float(d_int)/1024,2);
     d_unit = "GB"
 
