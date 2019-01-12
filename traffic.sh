@@ -58,9 +58,13 @@ if [[ $tc == 2 ]];then
 fi
 
 if [[ $tc == 3 ]];then
-    cd /usr/local/shadowsocksr
-    python mujson_mgr.py -c
-    echo "已清空全部用户的流量使用记录"    
+    echo "确认(y),其他返回:"
+    read yes
+    if [[ $yes == 'y' ]]; then
+        cd /usr/local/shadowsocksr
+        python mujson_mgr.py -c
+        echo "已清空全部用户的流量使用记录"
+    fi
     echo ""
     bash /usr/local/SSR-Bash-Python/traffic.sh
 fi
@@ -96,9 +100,13 @@ if [[ $tc == 4 ]];then
 fi
 
 if [[ $tc == 5 ]];then
-    cd /usr/local/shadowsocksr
-    python mujson_mgr.py -r
-    echo "已重置全部用户的流量配置"    
+    echo "确认(y),其他返回:"
+    read yes
+    if [[ !$yes == 'y' ]]; then
+        cd /usr/local/shadowsocksr
+        python mujson_mgr.py -r
+        echo "已重置全部用户的流量配置"
+    fi
     echo ""
     bash /usr/local/SSR-Bash-Python/traffic.sh
 fi
