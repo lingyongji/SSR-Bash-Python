@@ -39,14 +39,14 @@ if [[ $tc == 2 ]];then
             break
         fi
     done
-    
+
     if [[ $lsid == 1 ]];then
         read -p "输入用户名： " uid
         cd /usr/local/shadowsocksr
         python mujson_mgr.py -c -u $uid
         echo "已清空用户名为 ${uid} 的用户流量"
     fi
-    
+
     if [[ $lsid == 2 ]];then
         read -p "输入端口号： " uid
         cd /usr/local/shadowsocksr
@@ -81,14 +81,14 @@ if [[ $tc == 4 ]];then
             break
         fi
     done
-    
+
     if [[ $lsid == 1 ]];then
         read -p "输入用户名： " uid
         cd /usr/local/shadowsocksr
         python mujson_mgr.py -r -u $uid
         echo "已重置用户名为 ${uid} 的用户流量配置"
     fi
-    
+
     if [[ $lsid == 2 ]];then
         read -p "输入端口号： " uid
         cd /usr/local/shadowsocksr
@@ -102,7 +102,7 @@ fi
 if [[ $tc == 5 ]];then
     echo "确认(y),其他返回:"
     read yes
-    if [[ !$yes == 'y' ]]; then
+    if [[ $yes == 'y' ]]; then
         cd /usr/local/shadowsocksr
         python mujson_mgr.py -r
         echo "已重置全部用户的流量配置"
